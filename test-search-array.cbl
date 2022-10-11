@@ -43,7 +43,7 @@
            CALL 'SEARCH-NUMERIC-LIST' USING LIST-RECORD, LIST-LENGTH 
                                           , RECORD-FOUND, SEARCH-VALUE.
       * assert
-           IF RECORD-FOUND NOT > -1
-              DISPLAY 'RECORD-FOUND INVALID, EXPECTING 1, GOT '
+           IF RECORD-FOUND NOT = 2
+              DISPLAY 'RECORD-FOUND INVALID, EXPECTING 2, GOT '
                  RECORD-FOUND
            END-IF.
