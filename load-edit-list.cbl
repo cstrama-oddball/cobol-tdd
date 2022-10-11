@@ -27,6 +27,8 @@
 
          01 FILE-IN-VALUE PIC 9(4).
 
+         01 DONE-FLAG PIC X(1).
+
       * CONSTANTS
          01 FILE-STATUS-OK PIC 9(2) VALUE 00.
          01 FILE-STATUS-EOF PIC 9(2) VALUE 01.
@@ -52,29 +54,47 @@
 
        PROCEDURE DIVISION USING LIST-RECORD, LIST-LENGTH 
                               , INPUT-FILE-NAME.
+           MOVE 'N' TO DONE-FLAG.
            PERFORM 000-INITIALIZE.
            PERFORM 001-OPEN-INPUT-FILE.
            PERFORM 003-PROCESS-RECORDS.
            PERFORM 002-CLOSE-INPUT-FILE.
+           MOVE 'Y' TO DONE-FLAG.
 
            EXIT PROGRAM.
 
        000-INITIALIZE.
+           IF DONE-FLAG = 'Y'
+              EXIT PARAGRAPH 
+           END-IF.
+
            MOVE FILE-STATUS-OK TO FILE-IN-STATUS.
 
-           EXIT.
+           EXIT PARAGRAPH.
 
        001-OPEN-INPUT-FILE.
+           IF DONE-FLAG = 'Y'
+              EXIT PARAGRAPH 
+           END-IF.
+
            OPEN INPUT INPUT-FILE.
 
-           EXIT.
+           EXIT PARAGRAPH.
 
        002-CLOSE-INPUT-FILE.
+           IF DONE-FLAG = 'Y'
+              EXIT PARAGRAPH 
+           END-IF.
+
            CLOSE INPUT-FILE.
 
-           EXIT.
+           EXIT PARAGRAPH.
 
        003-PROCESS-RECORDS.
+           IF DONE-FLAG = 'Y'
+              EXIT PARAGRAPH 
+           END-IF.
+
            PERFORM UNTIL FILE-IN-STATUS NOT = FILE-STATUS-OK
               PERFORM 004-READ-RECORD
               IF FILE-IN-STATUS = FILE-STATUS-OK
@@ -82,13 +102,20 @@
               END-IF
            END-PERFORM.
 
+           EXIT PARAGRAPH.
+
        004-READ-RECORD.
            MOVE SPACES TO FILE-IN-RECORD.
            READ INPUT-FILE
               AT END MOVE FILE-STATUS-EOF TO FILE-IN-STATUS.
-           EXIT.
+
+           EXIT PARAGRAPH.
 
        005-LOAD-RECORD.
+           IF DONE-FLAG = 'Y'
+              EXIT PARAGRAPH 
+           END-IF.
+           
            IF FILE-IN-RECORD-IS-USED NOT = FILE-IGNORE-RECORD-FLAG
                AND FILE-IN-RECORD NOT = SPACES
                 ADD FILE-ADVANCE-RECORD-COUNT TO LIST-COUNT 
@@ -97,4 +124,4 @@
                 MOVE FILE-IN-RECORD-VALUE TO LIST-ITEMS(LIST-COUNT)
            END-IF.
 
-           EXIT.
+           EXIT PARAGRAPH.
