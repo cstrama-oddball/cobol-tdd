@@ -13,7 +13,7 @@
 
        01 SEARCH-VALUE PIC X(4).
 
-       01 RECORD-FOUND PIC 9(1).
+       01 RECORD-FOUND PIC S9(1).
 
        PROCEDURE DIVISION.
 
@@ -31,8 +31,8 @@
                                           , RECORD-FOUND, SEARCH-VALUE.
 
       * assert
-           IF RECORD-FOUND NOT = 0
-              DISPLAY 'RECORD-FOUND INVALID, EXPECTING 0, GOT '
+           IF RECORD-FOUND NOT = -1
+              DISPLAY 'RECORD-FOUND INVALID, EXPECTING -1, GOT '
                  RECORD-FOUND
            END-IF.
 
@@ -43,7 +43,7 @@
            CALL 'SEARCH-NUMERIC-LIST' USING LIST-RECORD, LIST-LENGTH 
                                           , RECORD-FOUND, SEARCH-VALUE.
       * assert
-           IF RECORD-FOUND NOT = 1
+           IF RECORD-FOUND NOT > -1
               DISPLAY 'RECORD-FOUND INVALID, EXPECTING 1, GOT '
                  RECORD-FOUND
            END-IF.
