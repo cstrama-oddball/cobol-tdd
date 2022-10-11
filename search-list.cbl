@@ -10,6 +10,8 @@
          01 RECORD-NOT-FOUND-FLAG PIC S9(1) VALUE -1.
          01 FIRST-RECORD PIC 9(1) VALUE 1.
          01 LIST-ADVANCE-RECORD-COUNT PIC 9(1) VALUE 1.
+         01 ALL-DONE PIC X(1) VALUE 'Y'.
+         01 NOT-DONE PIC X(1) VALUE 'N'.
 
        LINKAGE SECTION.
          01 LIST-LENGTH PIC 9(4).
@@ -32,15 +34,15 @@
       *   1 == found, 0 == not found
        PROCEDURE DIVISION USING LIST-RECORD, LIST-LENGTH 
                               , RECORD-FOUND, SEARCH-VALUE.
-           MOVE 'N' TO DONE-FLAG.
+           MOVE NOT-DONE TO DONE-FLAG.
            PERFORM 000-INITIALIZE.
            PERFORM 001-SEARCH.
-           MOVE 'Y' TO DONE-FLAG.
+           MOVE ALL-DONE TO DONE-FLAG.
            
            EXIT PROGRAM.
 
        000-INITIALIZE.
-           IF DONE-FLAG = 'Y'
+           IF DONE-FLAG = ALL-DONE
               EXIT PARAGRAPH 
            END-IF.
       *    INITIALIZE THE LOOP COUNTER AND RETURN VALUE
@@ -50,7 +52,7 @@
            EXIT PARAGRAPH.
 
        001-SEARCH.
-           IF DONE-FLAG = 'Y'
+           IF DONE-FLAG = ALL-DONE
               EXIT PARAGRAPH 
            END-IF.
            PERFORM UNTIL LIST-COUNT > LIST-LENGTH
