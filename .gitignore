@@ -25,3 +25,6 @@ refactor-long-if.cbl
 CURRDATI
 TESTCURRDATE
 CMNDATCV
+cics-test.cbl
+build-string.py
+TEST-LOAD-CONFIG-LIST

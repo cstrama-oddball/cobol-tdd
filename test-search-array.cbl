@@ -27,7 +27,7 @@
            MOVE '0000' TO SEARCH-VALUE.
 
       * act
-           CALL 'SEARCH-NUMERIC-LIST' USING LIST-RECORD, LIST-LENGTH 
+           CALL 'SEARCH-EDIT-LIST' USING LIST-RECORD, LIST-LENGTH 
                                           , RECORD-FOUND, SEARCH-VALUE.
 
       * assert

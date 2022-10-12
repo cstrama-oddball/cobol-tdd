@@ -1,5 +1,5 @@
        IDENTIFICATION DIVISION.
-       PROGRAM-ID. SEARCH-NUMERIC-LIST.
+       PROGRAM-ID. SEARCH-EDIT-LIST.
       
        DATA DIVISION.
        WORKING-STORAGE SECTION. 
@@ -35,8 +35,8 @@
        PROCEDURE DIVISION USING LIST-RECORD, LIST-LENGTH 
                               , RECORD-FOUND, SEARCH-VALUE.
            MOVE NOT-DONE TO DONE-FLAG.
-           PERFORM 000-INITIALIZE.
-           PERFORM 001-SEARCH.
+           PERFORM 000-INITIALIZE THRU 000-EXIT.
+           PERFORM 001-SEARCH THRU 001-EXIT.
            MOVE ALL-DONE TO DONE-FLAG.
            
            EXIT PROGRAM.
@@ -49,7 +49,8 @@
            MOVE FIRST-RECORD TO LIST-COUNT.
            MOVE RECORD-NOT-FOUND-FLAG TO RECORD-FOUND.
 
-           EXIT PARAGRAPH.
+       000-EXIT.
+           EXIT.
 
        001-SEARCH.
            IF DONE-FLAG = ALL-DONE
@@ -67,4 +68,5 @@
               END-IF
            END-PERFORM.
 
-           EXIT PARAGRAPH.
+       001-EXIT.
+           EXIT.
