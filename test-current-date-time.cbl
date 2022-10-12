@@ -44,6 +44,7 @@
            05 COMPARE-MIN PIC 9(2).
            05 COMPARE-SEC PIC 9(2).
 
+      *++INCLUDE DATEAREA
 
        PROCEDURE DIVISION.
 
@@ -51,10 +52,14 @@
            MOVE 'STUBCUDA' TO DATE-CONV-SUBMOD.
            MOVE  FUNCTION CURRENT-DATE TO  RUN-DATE-TIME. 
            MOVE  RUN-TIME TO ASSERT-TIME.
+           SET FUNC-CONV-THE-DATE                                        
+                FORMAT-1-YYYYDDD-PACKED                                   
+                FORMAT-2-MMDDYYYY TO TRUE
 
       * act
            CALL 'CURRDJUL' USING DS-JULIAN-DATE
                               , DISPLAY-DATE-TIME 
+                              , W-DATE-AREA
                               , DATE-CONV-SUBMOD.
 
       * assert

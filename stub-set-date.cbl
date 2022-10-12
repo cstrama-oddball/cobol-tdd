@@ -14,10 +14,15 @@
       *++INCLUDE DATEAREA
 
        PROCEDURE DIVISION USING W-DATE-AREA.
+
+           DISPLAY 'STUB DATE CONVERSION'.
+
+           DISPLAY 'FUNCTION CODE: ' W-FUNCTION-CODE
+           DISPLAY 'FORMAT 1: ' W-FORMAT-1
+           DISPLAY 'FORMAT 2: ' W-FORMAT-2
            
            MOVE '2022001' TO W-DATE-2-7.
 
 
            
            EXIT PROGRAM.
-           

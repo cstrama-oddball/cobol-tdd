@@ -131,3 +131,4 @@
                88  CONVERT-RET-BAD-FUNCTION        VALUE +16.                   
                88  CONVERT-RET-BAD-RANGE-INP       VALUE +28.                   
                88  CONVERT-RET-BAD-BINARY-LARGE    VALUE +32. 
+               

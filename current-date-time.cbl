@@ -16,8 +16,6 @@
                10  RUN-MINUTE  PIC  X(02).                              
                10  RUN-SECOND  PIC  X(02). 
 
-      *++INCLUDE DATEAREA
-
        LINKAGE SECTION. 
 
        01 DATE-CONV-SUBMOD PIC X(8).
@@ -39,8 +37,11 @@
                10                  PIC  X(01).                              
                10  DISPLAY-SECOND  PIC  X(02).
 
+      *++INCLUDE DATEAREA
+
        PROCEDURE DIVISION USING DS-JULIAN-DATE
                               , DISPLAY-DATE-TIME
+                              , W-DATE-AREA
                               , DATE-CONV-SUBMOD.
 
            MOVE  FUNCTION CURRENT-DATE TO  RUN-DATE-TIME                        
