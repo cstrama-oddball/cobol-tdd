@@ -47,6 +47,6 @@ def delete_file(file):
 if __name__=="__main__":
     if len(sys.argv) < 3:
         print("specify file names")
-        main("CMNDATCV.cbl", "out.tmp")
+        print (sys.argv[1])
     else:
         main(sys.argv[1], sys.argv[2])
