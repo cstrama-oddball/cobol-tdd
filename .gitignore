@@ -26,3 +26,5 @@ cics-test.cbl
 TEST-LOAD-CONFIG-LIST
 *.dll
 *.exe
+rest-client/
+*.gz
