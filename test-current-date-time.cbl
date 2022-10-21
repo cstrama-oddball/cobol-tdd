@@ -44,7 +44,7 @@
            05 COMPARE-MIN PIC 9(2).
            05 COMPARE-SEC PIC 9(2).
 
-      *++INCLUDE DATEAREA
+      *++INCLUDE DATEAREA.cpy
 
        PROCEDURE DIVISION.
 

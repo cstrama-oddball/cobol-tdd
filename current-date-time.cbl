@@ -37,7 +37,7 @@
                10                  PIC  X(01).                              
                10  DISPLAY-SECOND  PIC  X(02).
 
-      *++INCLUDE DATEAREA
+      *++INCLUDE DATEAREA.cpy
 
        PROCEDURE DIVISION USING DS-JULIAN-DATE
                               , DISPLAY-DATE-TIME
