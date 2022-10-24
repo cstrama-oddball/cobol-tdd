@@ -4,14 +4,11 @@
        DATA DIVISION.
        WORKING-STORAGE SECTION. 
          01 LIST-COUNT PIC 9(4).
-         01 DONE-FLAG PIC X(1) VALUE 'N'.
 
       * CONSTANTS
          01 RECORD-NOT-FOUND-FLAG PIC S9(1) VALUE -1.
          01 FIRST-RECORD PIC 9(1) VALUE 1.
          01 LIST-ADVANCE-RECORD-COUNT PIC 9(1) VALUE 1.
-         01 ALL-DONE PIC X(1) VALUE 'Y'.
-         01 NOT-DONE PIC X(1) VALUE 'N'.
 
        LINKAGE SECTION.
          01 LIST-LENGTH PIC 9(4).
@@ -34,17 +31,12 @@
       *   1 == found, 0 == not found
        PROCEDURE DIVISION USING LIST-RECORD, LIST-LENGTH 
                               , RECORD-FOUND, SEARCH-VALUE.
-           MOVE NOT-DONE TO DONE-FLAG.
            PERFORM 000-INITIALIZE THRU 000-EXIT.
            PERFORM 001-SEARCH THRU 001-EXIT.
-           MOVE ALL-DONE TO DONE-FLAG.
            
-           EXIT PROGRAM.
+           GOBACK.
 
        000-INITIALIZE.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
       *    INITIALIZE THE LOOP COUNTER AND RETURN VALUE
            MOVE FIRST-RECORD TO LIST-COUNT.
            MOVE RECORD-NOT-FOUND-FLAG TO RECORD-FOUND.
@@ -53,9 +45,6 @@
            EXIT.
 
        001-SEARCH.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
            PERFORM UNTIL LIST-COUNT > LIST-LENGTH
               IF LIST-VALUE(LIST-COUNT) = SEARCH-VALUE
                  MOVE LIST-COUNT TO RECORD-FOUND
