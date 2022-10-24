@@ -27,15 +27,11 @@
 
          01 FILE-IN-VALUE PIC 9(4).
 
-         01 DONE-FLAG PIC X(1).
-
       * CONSTANTS
          01 FILE-STATUS-OK PIC 9(2) VALUE 00.
          01 FILE-STATUS-EOF PIC 9(2) VALUE 01.
          01 FILE-IGNORE-RECORD-FLAG PIC X(1) VALUE '*'.
          01 FILE-ADVANCE-RECORD-COUNT PIC 9(1) VALUE 1.
-         01 ALL-DONE PIC X(1) VALUE 'Y'.
-         01 NOT-DONE PIC X(1) VALUE 'N'.
 
        LINKAGE SECTION.
          01 INPUT-FILE-NAME   PIC X(12).
@@ -57,19 +53,14 @@
 
        PROCEDURE DIVISION USING LIST-RECORD, LIST-LENGTH 
                               , INPUT-FILE-NAME.
-           MOVE NOT-DONE TO DONE-FLAG.
            PERFORM 000-INITIALIZE THRU 000-EXIT.
            PERFORM 001-OPEN-INPUT-FILE THRU 001-EXIT.
            PERFORM 003-PROCESS-RECORDS THRU 003-EXIT.
            PERFORM 002-CLOSE-INPUT-FILE THRU 002-EXIT.
-           MOVE ALL-DONE TO DONE-FLAG.
 
-           EXIT PROGRAM.
+           GOBACK.
 
        000-INITIALIZE.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
 
            MOVE FILE-STATUS-OK TO FILE-IN-STATUS.
 
@@ -77,9 +68,6 @@
            EXIT.
 
        001-OPEN-INPUT-FILE.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
 
            OPEN INPUT INPUT-FILE.
 
@@ -87,9 +75,6 @@
            EXIT.
 
        002-CLOSE-INPUT-FILE.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
 
            CLOSE INPUT-FILE.
 
@@ -97,9 +82,6 @@
            EXIT.
 
        003-PROCESS-RECORDS.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
 
            PERFORM UNTIL FILE-IN-STATUS NOT = FILE-STATUS-OK
               PERFORM 004-READ-RECORD THRU 004-EXIT
@@ -112,9 +94,6 @@
            EXIT.
 
        004-READ-RECORD.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
            MOVE SPACES TO FILE-IN-RECORD.
            READ INPUT-FILE
               AT END MOVE FILE-STATUS-EOF TO FILE-IN-STATUS.
@@ -123,9 +102,6 @@
            EXIT.
 
        005-LOAD-RECORD.
-           IF DONE-FLAG = ALL-DONE
-              EXIT PARAGRAPH 
-           END-IF.
            
            IF FILE-IN-RECORD-IS-USED NOT = FILE-IGNORE-RECORD-FLAG
                AND FILE-IN-RECORD NOT = SPACES
