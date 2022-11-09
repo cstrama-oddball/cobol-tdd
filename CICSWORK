@@ -1,0 +1,35 @@
+       01 DFHCOMLK.
+           02  COMTIME  COMP-3 PIC S9(7).
+           02  COMDATE  COMP-3 PIC S9(7).
+           02  COMTRNID        PIC  X(4).
+           02  COMTASKN COMP-3 PIC S9(7).
+           02  COMTRMID        PIC  X(4).
+           02  DFHEIGDI COMP   PIC S9(4).
+           02  COMCPOSN COMP   PIC S9(4).
+           02  COMCALEN COMP   PIC S9(4).
+           02  COMAID          PIC  X(1).
+           02  COMFN           PIC  X(2).
+           02  COMRCODE        PIC  X(6).
+           02  COMDS           PIC  X(8).
+           02  COMREQID        PIC  X(8).
+           02  COMRSRCE        PIC  X(8).
+           02  COMSYNC         PIC  X(1).
+           02  COMFREE         PIC  X(1).
+           02  COMRECV         PIC  X(1).
+           02  COMFIL01        PIC  X(1).
+           02  COMATT          PIC  X(1).
+           02  COMEOC          PIC  X(1).
+           02  COMFMH          PIC  X(1).
+           02  COMCOMPL        PIC  X(1).
+           02  COMSIG          PIC  X(1).
+           02  COMCONF         PIC  X(1).
+           02  COMERR          PIC  X(1).
+           02  COMERRCD        PIC  X(4).
+           02  COMSYNRB        PIC  X(1).
+           02  COMNODAT        PIC  X(1).
+           02  COMRESP  COMP   PIC S9(8).
+           02  COMRESP2 COMP   PIC S9(8).
+           02  COMRLDBK        PIC  X(1).
+           02  COMDATAREC.
+               05 COMDATA      PIC  X(1) OCCURS 1 TO 32000
+                    DEPENDING ON COMCALEN.

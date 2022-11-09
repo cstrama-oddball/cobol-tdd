@@ -1,0 +1,4 @@
+       01 DHFCOMMAREA.
+           05 DHFDATA OCCURS 1 TO 32000
+              DEPENDING EIBCALEN
+              PIC  X(01).

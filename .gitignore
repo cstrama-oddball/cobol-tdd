@@ -28,3 +28,8 @@ TEST-LOAD-CONFIG-LIST
 *.exe
 rest-client/
 *.gz
+cics_test*
+*.tmp
+__pycache__/
+*.cics
+*.o

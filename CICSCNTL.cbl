@@ -1,0 +1,25 @@
+       IDENTIFICATION DIVISION. 
+       PROGRAM-ID. CICSCNTL.
+
+       DATA DIVISION. 
+
+       WORKING-STORAGE SECTION. 
+
+       LINKAGE SECTION. 
+
+       COPY CICSLINK.
+
+       PROCEDURE DIVISION USING DFHEIBLK.
+
+           DISPLAY 'CICSCNTL'.
+
+           DISPLAY EIBDATAREC.
+
+           EVALUATE EIBTRNID
+              WHEN 'LINK'
+                 CALL EIBRSRCE USING DFHEIBLK
+              WHEN 'XCTL'
+                 CALL EIBRSRCE USING DFHEIBLK
+           END-EVALUATE.
+           
+           GOBACK.
