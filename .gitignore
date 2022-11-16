@@ -33,3 +33,7 @@ cics_test*
 __pycache__/
 *.cics
 *.o
+COPYBOOK.cpy
+helloworld.cbl
+hw.cbl
+launcher.cbl

@@ -2,6 +2,7 @@ import sys
 import CICSFactory
 from PreCompileConstants import *
 from FILEStatementProcess import *
+from os.path import exists
 
 cics_abend_statement = True
 is_main_program = True
@@ -179,6 +180,12 @@ def insert_linkage_section(outfile):
     insert_copybook(outfile, CICSLINK_COPYBOOK)
 
 def insert_copybook(outfile, copybook):
+    file_exists = exists(copybook)
+    if file_exists == False:
+        copybook = copybook + COPYBOOK_EXT
+        file_exists = exists(copybook)
+        if file_exists == False:
+            return
     with open(copybook) as file:
         for line in file:
             append_file(outfile, line)
