@@ -105,8 +105,6 @@
            READ INPUT-FILE
               AT END MOVE FILE-STATUS-EOF TO FILE-IN-STATUS.
 
-           EXIT.
-
        004-EXIT.
            EXIT.
 

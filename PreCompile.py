@@ -1,23 +1,32 @@
-import sys, os
+import sys
 import CICSFactory
 from PreCompileConstants import *
-
-from os.path import exists
+from FILEStatementProcess import *
 
 cics_abend_statement = True
 is_main_program = True
 
-def main(file, outfile):
+fileInfos = []
+
+def main(file, outfile, finalout):
+    tmp = finalout.replace("\\", "/").split("/")
+    outfilename = tmp[len(tmp) - 1]
+    print(outfilename)
     cicstempfile = file + '.cics'
     delete_file(outfile)
     delete_file(cicstempfile)
-    processfile(file, cicstempfile)
+    delete_file(cicstempfile + ".tmp")
+    processfile(file, cicstempfile, outfilename)
     cics_precompile(cicstempfile, outfile)   
-    delete_file(cicstempfile) 
+    #delete_file(cicstempfile)
 
-def processfile(file, outfile):
-    with open(file) as file:
-        for line in file:
+def processfile(file, outfile, exename):
+    has_files = False
+    with open(file) as f:
+        for line in f:
+            if len(line) > 5:
+                line = "      " + line[6:]
+            
             tmp = line.strip()
             if tmp.startswith(INCLUDE_STRING):
                 processfile(tmp.replace(INCLUDE_STRING, EMPTY_STRING), outfile)
@@ -25,11 +34,80 @@ def processfile(file, outfile):
                 tmp = tmp.replace(COPY_STRING, EMPTY_STRING)
                 if tmp.endswith(PERIOD):
                     tmp = tmp[0:len(tmp) - 1]
-                processfile(tmp, outfile)
+                processfile(tmp, outfile, exename)
+            elif tmp.startswith(FILE_STATEMENT):
+                has_files = True
+                append_file(outfile, line)
             elif tmp.startswith(COMMENT_STRING) == False and tmp.startswith(OTHER_COMMENT_STRING) == False:
                 append_file(outfile, line)
 
     append_file(outfile,NEWLINE)
+
+    if has_files and (IGNORE_FILE not in file):
+        file_precompile(outfile, exename)
+
+def file_precompile(file, exename):
+    global fileInfos
+    file_statement = ""
+    in_file_block = False
+    in_file_section = False
+    tmp_outfile = file + ".tmp"
+    fname = EMPTY_STRING
+    has_files = False
+    tmp_rec = EMPTY_STRING
+    set_file_rec = False
+    with open(file) as f:
+        for line in f:
+            tmp = line.strip()
+            if in_file_block == False and tmp.startswith(FILE_STATEMENT):
+                in_file_block = True
+                file_statement = process(line, fileInfos)
+                has_files = True
+            elif in_file_block:
+                file_statement = file_statement + process(line, fileInfos)
+                if tmp.endswith(PERIOD):
+                    in_file_block = False
+                    append_file(tmp_outfile, file_statement)
+            elif in_file_section == False and tmp.startswith(FILE_SECTION):
+                in_file_section = True
+                append_file(tmp_outfile, line)
+            elif in_file_section:
+                if (tmp.startswith(FD)):
+                    fileInfos, fname = allocateFile(tmp, fileInfos)
+                    append_file(tmp_outfile, line)
+                elif (tmp.startswith("01")):
+                    file_array = tmp.split(SPACE)
+                    count = 1
+                    for x in range(count, len(file_array)):
+                        if file_array[x] != EMPTY_STRING:
+                            tmp_rec = file_array[x]
+                            set_file_rec = True
+                            break
+                    append_file(tmp_outfile, line)
+                elif(set_file_rec and (findRecKey(fname,fileInfos) in tmp or findRecord(fname,fileInfos) in tmp)):
+                    set_file_rec = False
+                    assignFileRecord(fname, tmp_rec, fileInfos)
+                    in_file_section = False
+                    append_file(tmp_outfile, line)
+                else:
+                    append_file(tmp_outfile, line)
+            elif tmp.startswith(WORKING_STORAGE_SECTION) and has_files:
+                append_file(tmp_outfile, line)
+                insert_copybook(tmp_outfile, FILE_CALL_COPYBOOK)
+            elif tmp.startswith("READ") or tmp.startswith("REWRITE") or tmp.startswith("WRITE") or tmp.startswith("OPEN") or tmp.startswith("CLOSE"):
+                append_file(tmp_outfile, CBL_COMMENT + tmp + NEWLINE)
+                append_file(tmp_outfile, processFileVerb(tmp, fileInfos, exename))
+            else:
+                append_file(tmp_outfile, line)
+
+    rewrite_outfile(tmp_outfile, file)
+
+def rewrite_outfile(file, outfile):
+    delete_file(outfile)
+    with open(file) as f:
+        for line in f:
+            #print(line)
+            append_file(outfile, line)
 
 def cics_precompile(file,outfile):
     hascics = False
@@ -61,7 +139,6 @@ def insert_cics_linkage(file, outfile, haslinkagesection):
                 if haslinkagesection == False:
                     insert_linkage_section(outfile)
                 if USING_STATEMENT in tmp:
-                    print (line.split(PERIOD))
                     line = line.split(PERIOD)[0] + SPACE + DFHEIBLK + PERIOD
                 elif is_main_program == False:
                     line = line.split(PERIOD)[0] + USING_STATEMENT + DFHEIBLK + PERIOD + NEWLINE
@@ -119,10 +196,6 @@ def cleanup_array(s, delim):
 
     return out
 
-def delete_file(file):
-    if exists(file):
-        os.remove(file)
-
 if __name__=="__main__":
     inprog = ""
     outprog = ""
@@ -130,15 +203,16 @@ if __name__=="__main__":
     if len(sys.argv) == 1:
         inprog = "cics_test.cbl"
         outprog = "cics_test_out.cbl"
-    elif len(sys.argv) < 4:
+    elif len(sys.argv) < 5:
         print("specify file names")
         print (sys.argv[1])
         skip = True
     else:
         inprog = sys.argv[1]
         outprog = sys.argv[2]
+        finalout = sys.argv[4]
         if sys.argv[3] == "-m":
             is_main_program = False
         
     if skip == False:
-        main(inprog, outprog)
+        main(inprog, outprog, finalout)
