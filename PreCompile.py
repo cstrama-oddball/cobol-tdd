@@ -11,14 +11,13 @@ fileInfos = []
 def main(file, outfile, finalout):
     tmp = finalout.replace("\\", "/").split("/")
     outfilename = tmp[len(tmp) - 1]
-    print(outfilename)
     cicstempfile = file + '.cics'
     delete_file(outfile)
     delete_file(cicstempfile)
     delete_file(cicstempfile + ".tmp")
     processfile(file, cicstempfile, outfilename)
     cics_precompile(cicstempfile, outfile)   
-    #delete_file(cicstempfile)
+    delete_file(cicstempfile)
 
 def processfile(file, outfile, exename):
     has_files = False
