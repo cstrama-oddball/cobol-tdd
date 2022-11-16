@@ -1,5 +1,10 @@
 .vscode/
-CWFM-source/
+CWFM-source/*.tmp
+CWFM-source/*.cbl
+CWFM-source/*.cpy
+CWFM-source/*.py
+CWFM-source/*.txt
+CWFM-source/*.c
 baiurpt.txt
 CODEINCL
 EMPTYINC
