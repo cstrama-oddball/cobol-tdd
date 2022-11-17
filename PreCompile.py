@@ -34,7 +34,8 @@ def processfile(file, outfile, exename):
                 tmp = tmp.replace(COPY_STRING, EMPTY_STRING)
                 if tmp.endswith(PERIOD):
                     tmp = tmp[0:len(tmp) - 1]
-                processfile(tmp, outfile, exename)
+                insert_copybook(outfile, tmp)
+                #processfile(tmp, outfile, exename)
             elif tmp.startswith(FILE_STATEMENT):
                 has_files = True
                 append_file(outfile, line)
@@ -185,7 +186,14 @@ def insert_copybook(outfile, copybook):
         copybook = copybook + COPYBOOK_EXT
         file_exists = exists(copybook)
         if file_exists == False:
-            return
+            copybook = COPYBOOK_FOLDER + copybook
+            file_exists = exists(copybook)
+            if file_exists == False:
+                copybook = copybook.replace(COPYBOOK_EXT, EMPTY_STRING)
+                file_exists = exists(copybook)
+                if file_exists == False:
+                    return
+
     with open(copybook) as file:
         for line in file:
             append_file(outfile, line)

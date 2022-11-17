@@ -45,7 +45,7 @@ def process(line, fileInfos):
             index = index + 1
             if tmp_array[index]  != EMPTY_STRING:
                 tmp = tmp_array[index]
-                tmp_array[index] = "SEQUENTIAL"
+                #tmp_array[index] = "SEQUENTIAL"
                 if PERIOD in tmp:
                     tmp_array[index] = tmp_array[index] + PERIOD
                 if tmp.endswith(NEWLINE):
@@ -58,7 +58,7 @@ def process(line, fileInfos):
             index = index + 1
             if tmp_array[index]  != EMPTY_STRING:
                 tmp = tmp_array[index]
-                tmp_array[index] = "SEQUENTIAL"
+                #tmp_array[index] = "SEQUENTIAL"
                 if PERIOD in tmp:
                     tmp_array[index] = tmp_array[index] + PERIOD
                 if tmp.endswith(NEWLINE):
@@ -84,12 +84,12 @@ def process(line, fileInfos):
             index = index + 1
             if tmp_array[index] != EMPTY_STRING:
                 if iskey:
-                    rec_key = tmp_array[index]
+                    rec_key = tmp_array[index].replace(NEWLINE, EMPTY_STRING)
                     r = rec_key
                     assignFileRecordKey(filename, r, fileInfos)
                     break
                 else:
-                    record = tmp_array[index]
+                    record = tmp_array[index].replace(NEWLINE, EMPTY_STRING)
                     r = record
                     assignFileRecord(filename, r, fileInfos)
                     break

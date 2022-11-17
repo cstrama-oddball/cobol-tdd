@@ -5,6 +5,12 @@ CWFM-source/*.cpy
 CWFM-source/*.py
 CWFM-source/*.txt
 CWFM-source/*.c
+CWFM-source/copybooks/*.tmp
+CWFM-source/copybooks/*.cbl
+CWFM-source/copybooks/*.cpy
+CWFM-source/copybooks/*.py
+CWFM-source/copybooks/*.txt
+CWFM-source/copybooks/*.c
 baiurpt.txt
 CODEINCL
 EMPTYINC

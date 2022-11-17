@@ -1,0 +1,11 @@
+       01 FS-INFO-DATA.
+          05 FS-FILE-NAME            PIC X(56).
+          05 FS-FILE-NAME-LENGTH     PIC 9(2).
+          05 FS-VERB                 PIC X(10).
+          05 FS-FILE-RECORD          PIC X(56).
+          05 FS-FILE-REC-LENGTH      PIC 9(5).
+
+       01 FS-FILE-KEY-INFO-DATA.
+          05 FS-FILE-KEY             PIC X(56).
+          05 FS-FILE-KEY-NAME-LENGTH PIC 9(2).
+          05 FS-FILE-KEY-LENGTH      PIC 9(5).
