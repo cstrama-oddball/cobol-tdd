@@ -4,6 +4,7 @@
           05 FS-VERB                 PIC X(10).
           05 FS-FILE-RECORD          PIC X(56).
           05 FS-FILE-REC-LENGTH      PIC 9(5).
+          05 FS-CALLING-MODULE       PIC X(56).
 
        01 FS-FILE-KEY-INFO-DATA.
           05 FS-FILE-KEY             PIC X(56).

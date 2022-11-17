@@ -103,7 +103,7 @@ def process(line, fileInfos):
         
     return val
 
-def processFileVerb(line, fileInfos, outfilename):
+def processFileVerb(line, fileInfos, outfilename, module_name):
     verb_array = line.split(SPACE)
     fname = EMPTY_STRING
     t = EMPTY_STRING
@@ -114,14 +114,14 @@ def processFileVerb(line, fileInfos, outfilename):
     if line.startswith("READ"):
         for x in fileInfos:
             if fname == x.file_name:
-                t = build_verb("READ",fname,x,line, outfilename)
+                t = build_verb("READ",fname,x,line, outfilename, module_name)
                 t = t + CBL_PREFIX + "MOVE ZERO TO " + x.file_status + NEWLINE
                 break
            
     elif line.startswith("REWRITE"):
         for x in fileInfos:
             if fname == x.record_name:
-                t = build_verb("REWRITE",fname,x,line, outfilename)
+                t = build_verb("REWRITE",fname,x,line, outfilename, module_name)
                 t = t + CBL_PREFIX + "MOVE ZERO TO " + x.file_status + NEWLINE
                 break
 
@@ -136,9 +136,10 @@ def processFileVerb(line, fileInfos, outfilename):
                 break
     return t
 
-def build_verb(verb,fname,x,line,outfilename):
+def build_verb(verb,fname,x,line,outfilename,module_name):
     t = EMPTY_STRING
     t = t + CBL_PREFIX + "MOVE '" + x.file_name + "' TO FS-FILE-NAME" + NEWLINE
+    t = t + CBL_PREFIX + "MOVE '" + module_name + "' TO FS-CALLING-MODULE" + NEWLINE
     t = t + CBL_PREFIX + "MOVE " + str(len(x.file_name)) + " TO FS-FILE-NAME-LENGTH" + NEWLINE
     t = t + CBL_PREFIX + "MOVE '" + verb + "' TO FS-VERB" + NEWLINE
     t = t + CBL_PREFIX + "COMPUTE FS-FILE-REC-LENGTH = LENGTH OF " + x.record_name + NEWLINE

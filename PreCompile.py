@@ -9,6 +9,8 @@ is_main_program = True
 
 fileInfos = []
 
+module_name = ""
+
 def main(file, outfile, finalout):
     tmp = finalout.replace("\\", "/").split("/")
     outfilename = tmp[len(tmp) - 1]
@@ -18,9 +20,10 @@ def main(file, outfile, finalout):
     delete_file(cicstempfile + ".tmp")
     processfile(file, cicstempfile, outfilename)
     cics_precompile(cicstempfile, outfile)   
-    delete_file(cicstempfile)
+    #delete_file(cicstempfile)
 
 def processfile(file, outfile, exename):
+    global module_name
     has_files = False
     with open(file) as f:
         for line in f:
@@ -29,13 +32,16 @@ def processfile(file, outfile, exename):
             
             tmp = line.strip()
             if tmp.startswith(INCLUDE_STRING):
-                processfile(tmp.replace(INCLUDE_STRING, EMPTY_STRING), outfile)
+                processfile(tmp.replace(INCLUDE_STRING, EMPTY_STRING), outfile, exename)
+            elif tmp.startswith(PROGRAM_ID):
+                p_array = tmp.split(SPACE)
+                module_name = p_array[len(p_array) - 1].replace(PERIOD, EMPTY_STRING)
+                append_file(outfile, line)
             elif tmp.startswith(COPY_STRING):
                 tmp = tmp.replace(COPY_STRING, EMPTY_STRING)
                 if tmp.endswith(PERIOD):
                     tmp = tmp[0:len(tmp) - 1]
                 insert_copybook(outfile, tmp)
-                #processfile(tmp, outfile, exename)
             elif tmp.startswith(FILE_STATEMENT):
                 has_files = True
                 append_file(outfile, line)
@@ -48,7 +54,7 @@ def processfile(file, outfile, exename):
         file_precompile(outfile, exename)
 
 def file_precompile(file, exename):
-    global fileInfos
+    global fileInfos, module_name
     file_statement = ""
     in_file_block = False
     in_file_section = False
@@ -97,7 +103,7 @@ def file_precompile(file, exename):
                 insert_copybook(tmp_outfile, FILE_CALL_COPYBOOK)
             elif tmp.startswith("READ") or tmp.startswith("REWRITE") or tmp.startswith("WRITE") or tmp.startswith("OPEN") or tmp.startswith("CLOSE"):
                 append_file(tmp_outfile, CBL_COMMENT + tmp + NEWLINE)
-                append_file(tmp_outfile, processFileVerb(tmp, fileInfos, exename))
+                append_file(tmp_outfile, processFileVerb(tmp, fileInfos, exename, module_name))
             else:
                 append_file(tmp_outfile, line)
 
