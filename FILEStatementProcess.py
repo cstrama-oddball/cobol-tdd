@@ -147,9 +147,9 @@ def build_verb(verb,fname,x,line,outfilename):
         t = t + CBL_PREFIX + "MOVE " + x.record_key + " TO FS-FILE-KEY" + NEWLINE
     t = t + CBL_PREFIX + "MOVE " + x.record_name + " TO FS-FILE-RECORD" + NEWLINE
 
-    t = t + CBL_PREFIX + "CALL 'CBLFILE-" + outfilename + "' USING FS-INFO-DATA" + NEWLINE 
-    t = t + CBL_PREFIX + "                                 , FS-FILE-KEY-INFO-DATA" + NEWLINE
-    t = t + CBL_PREFIX + "                                  , " + x.record_name + NEWLINE
+    t = t + CBL_PREFIX + "CALL 'CBLFILE-" + outfilename.replace(EXE_EXTENSION, EMPTY_STRING) + "' USING FS-INFO-DATA" + NEWLINE 
+    t = t + CBL_PREFIX + "                 , FS-FILE-KEY-INFO-DATA" + NEWLINE
+    t = t + CBL_PREFIX + "                 , " + x.record_name + NEWLINE
 
     if PERIOD in line:
         t = t + PERIOD

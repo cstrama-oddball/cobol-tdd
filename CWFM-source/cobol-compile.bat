@@ -6,4 +6,4 @@ SET val=%%F.tmp
 python3 ..\PreCompile.py "%cd%\%1" "%cd%\%val%" %3 %2
 cobc %val% -o %2 %3
 rem type %val%
-rem del %cd%\%val%
+del %cd%\%val%
