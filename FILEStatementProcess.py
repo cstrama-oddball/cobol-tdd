@@ -15,7 +15,6 @@ record = EMPTY_STRING
 
 def process(line, fileInfos):
     global filename
-    tmp = line
     tmp_array = tmp.split(SPACE)
     index = 0
     if "ASSIGN" in tmp_array:
@@ -26,15 +25,18 @@ def process(line, fileInfos):
             if tmp_array[index]  != EMPTY_STRING:
                 tmp = tmp_array[index]
                 tmp_array[index] = "'" + tmp_array[index].replace(NEWLINE, EMPTY_STRING) + ".txt'" + NEWLINE
+                print(tmp)
                 if tmp.endswith(PERIOD):
                     tmp_array[index] = tmp_array[index] + PERIOD
 
         i = tmp_array.index("SELECT")
+        print(tmp_array)
         index = i
         for x in range(i + 1, len(tmp_array)):
             index = index + 1
             if tmp_array[index] != EMPTY_STRING:
                 filename = tmp_array[index]
+                print(filename)
                 addFile(filename, fileInfos)
                 break
 
@@ -112,7 +114,9 @@ def processFileVerb(line, fileInfos, outfilename, module_name):
             fname = verb_array[x]
 
     if line.startswith("READ"):
+        print(fname)
         for x in fileInfos:
+            print(x.file_name)
             if fname == x.file_name:
                 t = build_verb("READ",fname,x,line, outfilename, module_name)
                 t = t + CBL_PREFIX + "MOVE ZERO TO " + x.file_status + NEWLINE

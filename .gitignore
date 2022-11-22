@@ -48,3 +48,7 @@ COPYBOOK.cpy
 helloworld.cbl
 hw.cbl
 launcher.cbl
+*.dat
+*.idx
+*.in
+*.asm

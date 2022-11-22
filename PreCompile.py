@@ -25,6 +25,7 @@ def main(file, outfile, finalout):
 def processfile(file, outfile, exename):
     global module_name
     has_files = False
+    first = True
     with open(file) as f:
         for line in f:
             if len(line) > 5:
@@ -45,13 +46,15 @@ def processfile(file, outfile, exename):
             elif tmp.startswith(FILE_STATEMENT):
                 has_files = True
                 append_file(outfile, line)
+            elif tmp.startswith(CBL_FASTSRT):
+                append_file(outfile, EMPTY_STRING)
             elif tmp.startswith(COMMENT_STRING) == False and tmp.startswith(OTHER_COMMENT_STRING) == False:
                 append_file(outfile, line)
 
     append_file(outfile,NEWLINE)
 
-    if has_files and (IGNORE_FILE not in file):
-        file_precompile(outfile, exename)
+    #if has_files and (IGNORE_FILE not in file):
+    #    file_precompile(outfile, exename)
 
 def file_precompile(file, exename):
     global fileInfos, module_name
@@ -73,9 +76,13 @@ def file_precompile(file, exename):
             elif in_file_block:
                 file_statement = file_statement + process(line, fileInfos)
                 if tmp.endswith(PERIOD):
-                    in_file_block = False
+                    #in_file_block = False
                     append_file(tmp_outfile, file_statement)
+                    file_statement = EMPTY_STRING
+            elif in_file_block and tmp.startswith(DATA_DIVISION):
+                in_file_block = False
             elif in_file_section == False and tmp.startswith(FILE_SECTION):
+                in_file_block = False
                 in_file_section = True
                 append_file(tmp_outfile, line)
             elif in_file_section:
