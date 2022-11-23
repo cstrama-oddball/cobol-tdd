@@ -23,6 +23,8 @@ public class rrbtossa{
     private void loadPrefixArray() {
         prefix_array = new PrefixSuffixConversion[15];
 
+        // reverse the order of the list to have the longest prefixes checked first, in case a shorter
+        // prefix has the same start letters
         prefix_array[14] = new PrefixSuffixConversion("A", "10", new int[] {7,10}, 991274, 994999);
         prefix_array[13] = new PrefixSuffixConversion("H", "80", new int[] {7, 10}, 49160, 994999);
         prefix_array[12] = new PrefixSuffixConversion("MA", "14", new int[] {8, 11}, 991274, 994999);
