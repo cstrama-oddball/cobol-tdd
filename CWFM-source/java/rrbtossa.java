@@ -1,11 +1,14 @@
 public class rrbtossa{
 
-    PrefixSuffixConversion[] prefix_array;
+    private PrefixSuffixConversion[] prefix_array;
+
+    public rrbtossa() {
+        loadPrefixArray();
+    }
+
     public String[] process(String rrbs[]){
 
         String[] converted = new String[rrbs.length];
-
-        loadPrefixArray();
 
         for (int x = 0; x < rrbs.length; x++) {
 
