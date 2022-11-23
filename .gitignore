@@ -52,3 +52,4 @@ launcher.cbl
 *.idx
 *.in
 *.asm
+*.class
