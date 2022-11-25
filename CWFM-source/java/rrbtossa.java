@@ -49,6 +49,7 @@ public class rrbtossa{
             }
         }
 
-        return new PrefixSuffixConversion("", "", new int[0], 0, 0);
+        // return default object that has no match
+        return new PrefixSuffixConversion();
     }
 }

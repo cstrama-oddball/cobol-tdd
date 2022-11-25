@@ -11,6 +11,14 @@ public class PrefixSuffixConversion {
     private String _prefixFiller = "";
     private int _minPrefixfillerLength = 0;
 
+    public PrefixSuffixConversion() {
+        _prefix = "";
+        _suffix = "";
+        _matching_len = new int[0];
+        _ignoreRangeHigh = 0;
+        _ignoreRangeLow = 0;
+    }
+
     public PrefixSuffixConversion(String prefix, String suffix, int[] matching_lengths, int ignoreRangeLow, int ignoreRangeHigh) {
         _prefix = prefix;
         _suffix = suffix;
