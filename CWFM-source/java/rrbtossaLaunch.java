@@ -1,6 +1,8 @@
 public class rrbtossaLaunch {
+
+    private static String SPLIT_CHAR_REGEX = ",";
     public static void main(String args[]){
-        String[] rrb = args[0].split(",");
+        String[] rrb = args[0].split(SPLIT_CHAR_REGEX);
 
         rrbtossa convert = new rrbtossa();
 
