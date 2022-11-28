@@ -84,9 +84,8 @@ public class PrefixSuffixConversion {
             }
         }
 
-        if (goodLen) {
-            if (value.startsWith(getPrefix()))
-                return goodLen;
+        if (goodLen && value.startsWith(getPrefix())) {
+                return MATCH;
         }
 
         return NO_MATCH;
