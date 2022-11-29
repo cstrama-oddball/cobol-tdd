@@ -20,7 +20,7 @@ def main(file, outfile, finalout):
     delete_file(cicstempfile + ".tmp")
     processfile(file, cicstempfile, outfilename)
     cics_precompile(cicstempfile, outfile)   
-    #delete_file(cicstempfile)
+    delete_file(cicstempfile)
 
 def processfile(file, outfile, exename):
     global module_name
