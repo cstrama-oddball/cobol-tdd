@@ -11,6 +11,7 @@ CWFM-source/copybooks/*.cpy
 CWFM-source/copybooks/*.py
 CWFM-source/copybooks/*.txt
 CWFM-source/copybooks/*.c
+CWFM-source/load/*.txt
 baiurpt.txt
 CODEINCL
 EMPTYINC
