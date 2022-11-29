@@ -34,6 +34,7 @@ IGNORE_FILE = "CBLFILE.cbl"
 COPYBOOK_FOLDER = "copybooks/"
 CBL_COMMENT = "      *"
 EXE_EXTENSION = ".exe"
+FD = "FD"
 
 def cleanup_arg(a):
     return a.replace("(", EMPTY_STRING).replace(")", EMPTY_STRING).replace(CICS_DELIMITER, SPACE)
