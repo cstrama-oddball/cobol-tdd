@@ -54,3 +54,4 @@ launcher.cbl
 *.asm
 *.class
 gnucobol/gnucobol-bin/
+*.so
