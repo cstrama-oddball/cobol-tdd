@@ -38,7 +38,7 @@ TEST-LOAD-CONFIG-LIST
 *.dll
 *.exe
 rest-client/
-*.gz
+RESTclient.tar.gz
 cics_test*
 *.tmp
 __pycache__/
