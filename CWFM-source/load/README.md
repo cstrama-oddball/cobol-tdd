@@ -1,1 +1,1 @@
-Executables are stored here
+Executables are stored here after compilation
