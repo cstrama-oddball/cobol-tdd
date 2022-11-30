@@ -16,7 +16,7 @@ cp $CWFM_source_dir/SSATORRB.TXT SSATORRB.cbl
 cd load
 
 # set the environment variable to file access
-export RRBFILE=rrb-test.tst
+export RRBFILE=rrb-ssa-test.tst
 
 # execute the test
 ./SSATORRB-Launch
