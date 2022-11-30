@@ -1,5 +1,5 @@
        ID DIVISION. 
-       PROGRAM-ID. RRBTOSSA-LAUNCH.
+       PROGRAM-ID. SSATORRB-LAUNCH.
 
        ENVIRONMENT DIVISION. 
 
@@ -34,6 +34,7 @@
 
        PROCEDURE DIVISION.
 
+      *  arrange
            OPEN INPUT INPUTFILE.
 
            PERFORM UNTIL NO-MORE-RECORDS = 'Y'
@@ -45,8 +46,10 @@
               IF NO-MORE-RECORDS = 'N'
                     MOVE SSA-NUMBER TO SP-INTERNAL-HIC
          
+      *   act
                     CALL 'SSATORRB' USING SSATORRB-PARAMETERS
          
+      *   assert
                     IF SP-EXTERNAL-HIC NOT = RRB-CONVERT-ASSERT
                        DISPLAY SP-INTERNAL-HIC " converted to " 
                           SP-EXTERNAL-HIC
