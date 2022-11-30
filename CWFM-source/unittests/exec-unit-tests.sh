@@ -35,3 +35,4 @@ pwd
 
 # list of unit test script files to be exected in order
 source ./test-rrbtossa.sh
+source ./test-ssatorrb.sh
