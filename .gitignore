@@ -57,3 +57,5 @@ launcher.cbl
 gnucobol/gnucobol-bin/
 *.so
 RRBTOSSA-Launch
+CWFM-source/unittests/git-creds.txt
+CWFM-source/CWF/

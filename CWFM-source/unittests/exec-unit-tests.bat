@@ -1,18 +1,20 @@
 @echo off
-set CWFM-source-pull=load\
+set CWFM-source-pull=CWF\
+FOR /F %%i IN (git-creds.txt) DO set GIT_CREDS=%%i
 cd ..
 if exist %CWFM-source-pull% (
     goto pull_source
 )
 
-rem git clone the CWFM source repo
+git clone https://%GIT_CREDS%@github.cms.gov/common-working-file-modernization/CWF.git
 
 :pull_source
 
 cd %CWFM-source-pull%
 
-rem git pull the latest version of the source
-rem git pull
+rem ###
+rem # git pull the latest version of the source
+git pull
 
 :exec_tests
 
