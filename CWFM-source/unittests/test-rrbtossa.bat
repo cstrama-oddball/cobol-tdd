@@ -1,7 +1,7 @@
 @echo off
 cd ..
-
-copy CWFM_Source_Code\RRBTOSSA.cbl RRBTOSSA.cbl /Y
+set CWFM-source-dir=CWFM_Source_Code
+copy %CWFM-source-dir%\RRBTOSSA.cbl RRBTOSSA.cbl /Y
 
 call cobol-compile.bat RRBTOSSA.cbl RRBTOSSA -m
 call cobol-compile.bat RRBTOSSA-Launch.tcbl RRBTOSSA-Launch -x

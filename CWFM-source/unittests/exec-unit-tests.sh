@@ -13,17 +13,12 @@ else
 
 fi
 
-
-
-cd $CWFM_source_pull
-
-pwd
-
 # git pull the latest version of the source
 # git pull
 
-
-cd ../unittests
+######################
+# EXEC UNIT TESTS
+cd unittests
 
 # list of unit test script files to be exected in order
 ./test-rrbtossa.sh
