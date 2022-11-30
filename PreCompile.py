@@ -2,6 +2,7 @@ import sys
 import CICSFactory
 from PreCompileConstants import *
 from FILEStatementProcess import *
+from PreCompileEBCDIC import *
 from os.path import exists
 
 cics_abend_statement = True
@@ -19,7 +20,8 @@ def main(file, outfile, finalout):
     delete_file(cicstempfile)
     delete_file(cicstempfile + ".tmp")
     processfile(file, cicstempfile, outfilename)
-    cics_precompile(cicstempfile, outfile)   
+    cics_precompile(cicstempfile, outfile)
+    convertEBCDIC(outfile)
     delete_file(cicstempfile)
 
 def processfile(file, outfile, exename):

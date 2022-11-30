@@ -1,4 +1,4 @@
-echo RRBTOSSA test start
+echo SSATORRB test start
 #get to the proper directory
 cd ..
 
@@ -6,11 +6,11 @@ cd ..
 export CWFM_source_dir=CWF/EPROD/SATL/SORC
 
 # copy the latest version of the source code for testing
-cp $CWFM_source_dir/RRBTOSSA.TXT RRBTOSSA.cbl
+cp $CWFM_source_dir/SSATORRB.TXT SSATORRB.cbl
 
 # compile the code for testing
-./cobol-compile.sh RRBTOSSA.cbl RRBTOSSA -m
-./cobol-compile.sh RRBTOSSA-Launch.cob RRBTOSSA-Launch -x
+./cobol-compile.sh SSATORRB.cbl SSATORRB -m
+./cobol-compile.sh SSATORRB-Launch.cob SSATORRB-Launch -x
 
 # get to the proper directory that has the binary files
 cd load
@@ -19,9 +19,9 @@ cd load
 export RRBFILE=rrb-test.tst
 
 # execute the test
-./RRBTOSSA-Launch
+./SSATORRB-Launch
 
 # get back to the unit test directory and return control
 cd ../unittests
 
-echo RRBTOSSA test complete
+echo SSATORRB test complete

@@ -8,6 +8,7 @@ COMMENT_STRING = "*"
 OTHER_COMMENT_STRING = "/"
 NEWLINE = "\n"
 APPEND_FLAG = "a"
+WRITE_FLAG = "w"
 EMPTY_STRING = ""
 PERIOD = "."
 CICS_DELIMITER = "|"
@@ -46,6 +47,9 @@ def _write_file_data(file,data,method):
     f = open(file,method)
     f.write(data)
     f.close()
+
+def write_new_file(file, data):
+    _write_file_data(file, data, WRITE_FLAG)
 
 def delete_file(file):
     if exists(file):
