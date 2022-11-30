@@ -1,12 +1,13 @@
-@echo off
-export CWFM_source_pull=load\
+
+export CWFM_source_pull=CWFM_Source_Code/
 cd ..
 
 if [ -d $CWFM_source_pull ] 
 then
-    echo "Directory /path/to/dir exists." 
+    # don't need to clone the CWFM source code project
+	echo "CWFM source code repo is cloned"
 else
-    echo "Error: Directory /path/to/dir does not exists."
+    echo "Need to clone the source code project"
 
 # git clone the CWFM source repo
 
@@ -15,6 +16,8 @@ fi
 
 
 cd $CWFM_source_pull
+
+pwd
 
 # git pull the latest version of the source
 # git pull
