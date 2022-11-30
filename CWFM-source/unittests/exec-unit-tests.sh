@@ -2,6 +2,9 @@
 export CWFM_source_pull=CWF/
 
 # set the git credentials
+# create a file called git-creds.txt in the same directory
+#  as this script file
+# put the credentials in as <usernme>:<access token>
 GIT_CREDS=`cat git-creds.txt`
 
 # get to the proper directory

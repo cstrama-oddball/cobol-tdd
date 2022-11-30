@@ -4,6 +4,9 @@ rem set the CWF source directory that has MF code
 set CWFM-source-pull=CWF\
 
 rem set the git credentials from the file
+rem create a file called git-creds.txt in the same directory
+rem  as this script file
+rem put the credentials in as <usernme>:<access token>
 FOR /F %%i IN (git-creds.txt) DO set GIT_CREDS=%%i
 
 rem get to the proper directory
