@@ -50,6 +50,9 @@ def processfile(file, outfile, exename):
                 append_file(outfile, line)
             elif tmp.startswith(CBL_FASTSRT):
                 append_file(outfile, EMPTY_STRING)
+            elif tmp == EMPTY_STRING:
+                # nothing to do
+                continue
             elif tmp.startswith(COMMENT_STRING) == False and tmp.startswith(OTHER_COMMENT_STRING) == False:
                 append_file(outfile, line)
 
