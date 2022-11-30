@@ -1,5 +1,7 @@
 
-export CWFM_source_pull=CWFM_Source_Code/
+export CWFM_source_pull=CWF/
+GIT_CREDS=`cat git-creds.txt`
+
 cd ..
 
 if [ -d $CWFM_source_pull ] 
@@ -9,12 +11,12 @@ then
 else
     echo "Need to clone the source code project"
 
-# git clone the CWFM source repo
+    git clone https://$GIT_CREDS@github.cms.gov/common-working-file-modernization/CWF.git
 
 fi
 
 # git pull the latest version of the source
-# git pull
+git pull
 
 ######################
 # EXEC UNIT TESTS
