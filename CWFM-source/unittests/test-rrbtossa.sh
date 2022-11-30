@@ -4,3 +4,5 @@ cd ..
 cd load
 export RRBFILE=rrb-test.tst
 ./RRBTOSSA-Launch
+cd ../unittests
+echo RRBTOSSA test complete
