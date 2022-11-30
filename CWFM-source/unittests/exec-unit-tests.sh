@@ -3,6 +3,7 @@ export CWFM_source_pull=CWF/
 GIT_CREDS=`cat git-creds.txt`
 
 cd ..
+pwd
 
 if [ -d $CWFM_source_pull ] 
 then
@@ -15,12 +16,16 @@ else
 
 fi
 
+cd $CWFM_source_pull
+pwd
+
 # git pull the latest version of the source
 git pull
 
 ######################
 # EXEC UNIT TESTS
-cd unittests
+cd ../unittests
+pwd
 
 # list of unit test script files to be exected in order
 ./test-rrbtossa.sh
