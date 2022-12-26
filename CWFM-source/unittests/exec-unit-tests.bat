@@ -41,3 +41,4 @@ echo %CD%
 rem list of unit test script files to be exected in order
 call test-rrbtossa.bat
 call test-ssatorrb.bat
+call test-filestat.bat

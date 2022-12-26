@@ -1,4 +1,3 @@
-#!/bin/sh
 val=`python3 ../gen-rand.py`
 
 
