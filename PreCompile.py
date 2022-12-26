@@ -28,6 +28,8 @@ def processfile(file, outfile, exename):
     global module_name
     has_files = False
     first = True
+    is_in_copybook = False
+    holding = ""
     with open(file) as f:
         for line in f:
             if len(line) > 5:
@@ -40,13 +42,19 @@ def processfile(file, outfile, exename):
                 p_array = tmp.split(SPACE)
                 module_name = p_array[len(p_array) - 1].replace(PERIOD, EMPTY_STRING)
                 append_file(outfile, line)
-            elif tmp.startswith(COPY_STRING):
+            elif tmp.startswith(COPY_STRING) or is_in_copybook:
                 tmp = tmp.replace(COPY_STRING, EMPTY_STRING)
                 if tmp.endswith(PERIOD):
-                    tmp = tmp[0:len(tmp) - 1]
-                insert_copybook(outfile, tmp)
+                    tmp = holding + " " + tmp[0:len(tmp) - 1]
+                    print(tmp)
+                    insert_copybook(outfile, tmp)
+                    is_in_copybook = False
+                    holding = EMPTY_STRING
+                else:
+                    holding = holding + " " + tmp
+                    is_in_copybook = True
+                
             elif tmp.startswith(FILE_STATEMENT):
-                has_files = True
                 append_file(outfile, line)
             elif tmp.startswith(CBL_FASTSRT):
                 append_file(outfile, EMPTY_STRING)
@@ -199,6 +207,11 @@ def insert_linkage_section(outfile):
     insert_copybook(outfile, CICSLINK_COPYBOOK)
 
 def insert_copybook(outfile, copybook):
+    replace_info = [copybook, EMPTY_STRING, EMPTY_STRING, EMPTY_STRING]
+    if REPLACING_KEYWORD in copybook:
+        replace_info = copybook.split(REPLACING_DELIMITER)
+        copybook = replace_info[0].replace(REPLACING_KEYWORD, EMPTY_STRING).strip()
+        print(copybook)
     file_exists = exists(copybook)
     if file_exists == False:
         copybook = copybook + COPYBOOK_EXT
@@ -214,6 +227,7 @@ def insert_copybook(outfile, copybook):
 
     with open(copybook) as file:
         for line in file:
+            line = line.replace(replace_info[1], replace_info[3])
             append_file(outfile, line)
     append_file(outfile, "       \n")
     append_file(outfile, "       \n")

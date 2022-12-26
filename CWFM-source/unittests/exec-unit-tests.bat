@@ -34,6 +34,12 @@ git pull
 
 :exec_tests
 
+cd ..\load
+
+del *.dll
+del *.so
+del *.exe
+
 rem get to the proper directory to run the unit tests
 cd ..\unittests
 echo %CD%
